@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class DivideByConstantOperation : Operation
+    public class SquareOperation : Operation
     {
-        private int constant;
-
-        public DivideByConstantOperation(int constant)
+        public SquareOperation()
         {
-            this.constant = constant;
-            Name = "/" + constant;
+            base.Name = "x^2";
         }
 
         public override double Execute(double input)
         {
-            return input / constant;
+            return input * input;
         }
     }
 }

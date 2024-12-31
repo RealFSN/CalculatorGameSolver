@@ -7,16 +7,16 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        int initialNum = 0;
-        int numberOfMoves = 8;
-        int goal = 1000;
+        int initialNum = 44;
+        int numberOfMoves = 5;
+        int goal = 52;
 
         List<Operation> operations = new List<Operation>()
         {
-            new PushConstantOperation(2),
-            new PushConstantOperation(5),
-            new AddConstantOperation(5),
-            new SubtractConstantOperation(5)
+            new AddOperation(9),
+            new MultiplyOperation(4),
+            new MultiplyOperation(-1),
+            new DivideOperation(2),
         };
 
         var perms = GenerateAllPermutationsWithRepetition(operations, numberOfMoves);

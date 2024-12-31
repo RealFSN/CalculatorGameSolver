@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class PushConstantOperation : Operation
+    public class DivideOperation : Operation
     {
         private int constant;
 
-        public PushConstantOperation(int constant)
+        public DivideOperation(int constant)
         {
             this.constant = constant;
-            Name = "Push " + constant;
+            Name = "/" + constant;
         }
 
         public override double Execute(double input)
         {
-            return double.Parse(input.ToString() + constant);
+            return input / constant;
         }
     }
 }

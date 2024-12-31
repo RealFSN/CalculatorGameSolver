@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class MultiplyByConstantOperation : Operation
+    public class MultiplyOperation : Operation
     {
         private int constant;
 
-        public MultiplyByConstantOperation(int constant)
+        public MultiplyOperation(int constant)
         {
             this.constant = constant;
             Name = "x" + constant;
