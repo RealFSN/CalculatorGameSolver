@@ -7,78 +7,51 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        int initialNum = 44;
-        int numberOfMoves = 5;
-        int goal = 52;
-
-        List<Operation> operations = new List<Operation>()
+        List<IOperation> operations = new List<IOperation>()
         {
-            new AddOperation(9),
-            new MultiplyOperation(4),
-            new MultiplyOperation(-1),
-            new DivideOperation(2),
+            new MultiplyOperation(2),
+            new AddOperation(10),
+            new MultiplyOperation(-2),
+            new RemoveLastDigitOperation(),
+            new ReverseOperation()
         };
 
-        var perms = GenerateAllPermutationsWithRepetition(operations, numberOfMoves);
+        var solver = new Solver();
+        var solutions = new List<Solution>();
 
-        List<int> solutions = new();
-        List<int> stepsToGetSolution = new();
-
-        for (int i = 0; i < perms.Count; i++)
+        int threshold = 10;
+        for (int i = 0; i < threshold; i++)
         {
-            var p = perms[i];
-            double val = initialNum;
-            for (int j = 0; j < p.Count; j++)
-            {
-                val = p[j].Execute(val);
+            solutions = solver.Solve(111, i, 420, operations);
 
-                if (val == goal)
-                {
-                    solutions.Add(i);
-                    stepsToGetSolution.Add(j);
-                }
+            if (solutions.Count > 0)
+            {
+                break;
             }
         }
 
-        for (int i = 0; i < solutions.Count; i++)
+        if (solutions.Count == 0)
         {
-            var perm = perms[solutions[i]];
-            Console.WriteLine("Number of steps taken: " + (stepsToGetSolution[i] + 1));
-            for (int j = 0; j <= stepsToGetSolution[i]; j++)
+            Console.WriteLine("We did not find any solutions of size 10 or less");
+            return;
+        }
+
+        int min = solutions[0].operations.Count;
+        foreach (var sol in solutions)
+        {
+            if (sol.operations.Count < min)
             {
-                Console.WriteLine(perm[j].Name);
+                min = sol.operations.Count;
             }
+
+            foreach (var op in sol.operations)
+            {
+                Console.WriteLine(op.ToString());
+            }
+
             Console.WriteLine();
         }
 
-        Console.WriteLine("The Minimum Number of Steps to Get The Answer is: " + (stepsToGetSolution.Min() + 1));
-    }
-
-    static List<List<Operation>> GenerateAllPermutationsWithRepetition(List<Operation> ops, int n)
-    {
-        if (n == 0)
-        {
-            var ls = new List<List<Operation>>
-            {
-                new List<Operation>()
-            };
-            return ls;
-        }
-
-        var list = GenerateAllPermutationsWithRepetition(ops, n - 1);
-
-        var newList = new List<List<Operation>>(list.Count * ops.Count);
-
-        for (int i = 0; i < ops.Count; i++)
-        {
-            for (int j = 0; j < list.Count; j++)
-            {
-                var ls = new List<Operation>(list[j]);
-                ls.Insert(0, ops[i]);
-                newList.Add(ls);
-            }
-        }
-
-        return newList;
+        Console.WriteLine("The Minimum Number of Operations to Get The Answer is: " + min);
     }
 }

@@ -6,26 +6,35 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class ReverseOperation : Operation
+    public class ReverseOperation : IOperation
     {
+        private string description;
+
         public ReverseOperation()
         {
-            Name = "Reverse";
+            description = "Reverse";
         }
 
-        public override double Execute(double input)
+        public double Execute(double input)
         {
-            string str = input.ToString();
-            bool isNegative = false;
-            if (input < 0)
+            double inputAbsVal = Math.Abs(input);
+            if (inputAbsVal < 10)
             {
-                isNegative = true;
-                str = str.Remove(0, 1);
+                return input;
             }
+
+            bool isNegative = input < 0 ? true : false;
+            string str = inputAbsVal.ToString();
             char[] c = str.ToCharArray();
             Array.Reverse(c);
-            string newStr = isNegative ? '-' + new string(c) : new string(c);
-            return double.Parse(newStr);
+            string newStr = new string(c);
+            double val = double.Parse(newStr);
+            return isNegative ? -val : val;
+        }
+
+        public override string ToString()
+        {
+            return description;
         }
     }
 }

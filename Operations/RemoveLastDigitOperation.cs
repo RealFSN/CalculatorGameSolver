@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class RemoveLastDigitOperation : Operation
+    public class RemoveLastDigitOperation : IOperation
     {
+        private string description;
+
         public RemoveLastDigitOperation()
         {
             // this is how it looks in the game
-            base.Name = "<<";
+            description = "<<";
         }
 
-        public override double Execute(double input)
+        public double Execute(double input)
         {
-            // similar to Mathf.Abs(input) < 10. just square both sides
-            if (input * input < 100)
+            if (Math.Abs(input) < 100)
             {
                 return 0;
             }
@@ -33,6 +34,11 @@ namespace CalculatorGameSolver.Operations
 
             string newStr = new string(newC);
             return double.Parse(newStr);
+        }
+
+        public override string ToString()
+        {
+            return description;
         }
     }
 }

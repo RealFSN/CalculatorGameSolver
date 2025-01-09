@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class SquareOperation : Operation
+    public class SquareOperation : IOperation
     {
+        private string description;
+
         public SquareOperation()
         {
-            base.Name = "x^2";
+            description = "x^2";
         }
 
-        public override double Execute(double input)
+        public double Execute(double input)
         {
             return input * input;
+        }
+
+        public override string ToString()
+        {
+            return description;
         }
     }
 }

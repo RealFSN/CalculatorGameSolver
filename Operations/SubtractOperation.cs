@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public class SubtractOperation : Operation
+    public class SubtractOperation : IOperation
     {
         private int constant;
+        private string description;
 
         public SubtractOperation(int constant)
         {
             this.constant = constant;
-            Name = "-" + constant;
+            description = "-" + constant;
         }
 
-        public override double Execute(double input)
+        public double Execute(double input)
         {
             return input - constant;
+        }
+
+        public override string ToString()
+        {
+            return description;
         }
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace CalculatorGameSolver.Operations
 {
-    public abstract class Operation
+    public interface IOperation
     {
-        public string Name;
         public abstract double Execute(double input);
     }
 }
